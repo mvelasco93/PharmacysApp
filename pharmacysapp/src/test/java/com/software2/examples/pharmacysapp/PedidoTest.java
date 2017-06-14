@@ -148,5 +148,84 @@ public class PedidoTest {
         
         System.out.println("----Test 4----\n");
     }
+    
+    @Test
+    public void totalPagar(){
+    	System.out.println("----Test 5----");
+    	
+    	/*
+    	 * Funcionalidades y módulos:
+    	 * Confirmar el pedido, Zona de entrega, Recargo por la zona
+    	 * 
+    	 * */
+    	
+    	 /*
+         * Descripción:
+         * El usuario ingresa al sistema, agrega productos al carrito, visualiza el pedido. 
+         * Después da clic en siguiente donde ingresa la información del cliente (nombre, sector,
+         * tipo de pago) y confirma el pedido. 
+         * El sistema devolverá la cantidad a pagar y si existe o no un recargo por el precio y la zona
+         * */
+    	
+    	Producto p1 = obtener_producto_catalogo(catalogo,"Analgan");
+        Producto p2 = obtener_producto_catalogo(catalogo,"Dicloflenaco");
+        DetallePedido detalle1 = new DetallePedido(p1,1);
+        DetallePedido detalle2 = new DetallePedido(p2,1);
+        
+        //Crea lista de detalle pedido
+        ArrayList<DetallePedido> det = new ArrayList<DetallePedido>();
+        det.add(detalle1);
+        det.add(detalle2);
+        
+        Pago pa=new Pago();
+        pa.crear_pago(true,"");
+        
+        //Ingresa nombre,sector,tipo cliente
+        Cliente client=new Cliente("Kerly", 2, pa);
+        Pedido pedid = new Pedido(det, new Date(), client);
+        
+       
+        
+        /*
+         * Datos de prueba:
+         * Productos seleccionados: Analgan y Dicloflenaco
+         * Cantidad de cada uno: 1
+         * Método de pago: efectivo
+         * Nombre del cliente: Kerly
+         * Sector: Centro
+         * Horario: Hora actual
+         * */
+        
+        /*
+         * Resultado esperado
+         * El usuario da clic en confirmar pedido donde se le mostrará si obtuvo un recargo y el precio
+         * total
+         * */
+        
+        // 1 Analgan = 2.50 + 1 Dicloflenaco = 10.5 Hacen 13 de subtotal a pagar
+        // La zona en la que está es el centro por lo que tendría un recargo de 2 en caso de 
+        // que el subtotal sea menor a 10
+        
+        double subt=detalle1.subtotal +detalle2.subtotal;
+        System.out.println("El subtotal a pagar es: " + subt);
+        
+        assertEquals(0, pedid.GetRecargo(client, pedid.TotalPedido()));
+        assertEquals(13, pedid.TotalPedido());
+        
+        /* 
+         * Resultado obtenido
+         * El usuario da clic en confirmar pedido donde se le mostrará si obtuvo un recargo y el precio
+         * total
+         * */
+    	
+    	System.out.println("----Test 5----\n");
+    }
+    
+    /*
+     * Mejoras al código de la app
+     * No tiene un estándar tan estilizado y los comentarios están mezclados en la misma línea del
+     * código o están antes. No hay unidad en esa parte. Sería bueno que tuvieran JavaDocs las 
+     * funciones para no estar revisando el archivo y sus comentarios seguidos. 
+     * */
 
 }
