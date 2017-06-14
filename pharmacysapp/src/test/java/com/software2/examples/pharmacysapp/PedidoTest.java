@@ -209,8 +209,8 @@ public class PedidoTest {
         double subt=detalle1.subtotal +detalle2.subtotal;
         System.out.println("El subtotal a pagar es: " + subt);
         
-        assertEquals(0, pedid.GetRecargo(client, pedid.TotalPedido()));
-        assertEquals(13, pedid.TotalPedido());
+        assertEquals(0.0, pedid.GetRecargo(client, pedid.TotalPedido()));
+        assertEquals(13.0, pedid.TotalPedido());
         
         /* 
          * Resultado obtenido
